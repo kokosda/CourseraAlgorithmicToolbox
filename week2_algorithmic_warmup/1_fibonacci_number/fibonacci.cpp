@@ -1,5 +1,6 @@
 #include <iostream>
 #include <cassert>
+#include <vector>
 
 // The following code calls a naive algorithm for computing a Fibonacci number.
 //
@@ -22,25 +23,47 @@ int fibonacci_naive(int n) {
 }
 
 long long fibonacci_fast(int n) {
-    // write your code here
+    if (n < 0 || n > 45)
+    {
+        std::cout << "Input is out of range [0, 45]." << std::endl;
+        return -1;
+    }
 
-    return 0;
+    long long result = 0;
+    std::vector<long long> v(n + 1);
+
+    v[0] = 0;
+
+    if (n > 0)
+        v[1] = 1;
+
+    for (int i = 2; i <= n; i++)
+    {
+        long long temp = v[i - 1] + v[i - 2];
+        v[i] = temp;
+        // std::cout << "v[" << i << + "] = " << v[i] << std::endl;
+    }
+
+    result = v.back();
+    return result;
 }
 
 void test_solution() {
-    assert(fibonacci_fast(3) == 2);
-    assert(fibonacci_fast(10) == 55);
-    for (int n = 0; n < 20; ++n)
-        assert(fibonacci_fast(n) == fibonacci_naive(n));
+    // assert(fibonacci_fast(3) == 2);
+    // assert(fibonacci_fast(10) == 55);
+    // for (int n = 0; n < 20; ++n)
+    //     assert(fibonacci_fast(n) == fibonacci_naive(n));
+    std::cout << "naive " << fibonacci_naive(3) << " | fast " << fibonacci_fast(3);
+    std::cout << "naive " << fibonacci_naive(10) << " | fast " << fibonacci_fast(10);
 }
 
 int main() {
     int n = 0;
     std::cin >> n;
 
-    std::cout << fibonacci_naive(n) << '\n';
-    //test_solution();
-    //std::cout << fibonacci_fast(n) << '\n';
+    // std::cout << fibonacci_naive(n) << '\n';
+    // test_solution();
+    std::cout << fibonacci_fast(n) << '\n';
 
     return 0;
 }
