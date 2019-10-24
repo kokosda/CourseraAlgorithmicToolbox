@@ -36,11 +36,10 @@ int gcd_euclid(int a, int b)
     if (a < 1 || b < 1)
       return -1;
 
-    int temp = a > b ? a : b;
-    a = temp;
-    b = b < a ? b : a;
+    int temp_a = a > b ? a : b;
+    int temp_b = a > b ? b : a;
 
-    return gcb_euclid_internal(a, b);
+    return gcb_euclid_internal(temp_a, temp_b);
 }
 
 int main()
