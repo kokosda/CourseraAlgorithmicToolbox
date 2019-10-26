@@ -38,7 +38,7 @@ long long lcm_fast(long long a, long long b) {
   long long greatestCommonDivisor = gcd_euclid(a, b);
 
   if (greatestCommonDivisor <= 0)
-    return -1;
+    return 0;
 
   return (a * b) / greatestCommonDivisor;
 }
