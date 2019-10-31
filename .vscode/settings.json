@@ -55,6 +55,8 @@
         "xlocnum": "cpp",
         "xmemory": "cpp",
         "xtr1common": "cpp",
-        "xutility": "cpp"
+        "xutility": "cpp",
+        "*.tcc": "cpp",
+        "string_view": "cpp"
     }
 }
