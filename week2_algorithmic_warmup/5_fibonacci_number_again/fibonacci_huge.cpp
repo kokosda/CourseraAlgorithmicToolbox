@@ -35,17 +35,17 @@ long long calculate_period(long long n, long long m) {
     return length;
 }
 
-int get_fibonacci_number(int n) {
+int get_fibonacci_number(long long n, long long m) {
     if (n <= 1)
         return n;
 
-    int previous = 0;
-    int current  = 1;
+    long long previous = 0;
+    long long current  = 1;
 
     for (int i = 0; i < n - 1; ++i) {
         int tmp_previous = previous;
         previous = current;
-        current = tmp_previous + current;
+        current = (tmp_previous + current) % m;
     }
 
     return current;
@@ -54,7 +54,7 @@ int get_fibonacci_number(int n) {
 long long get_fibonacci_huge_fast(long long n, long long m) {
     long long period = calculate_period(n, m);
     long long remainder = n % period;
-    int fibonnaci_number = get_fibonacci_number(remainder);
+    int fibonnaci_number = get_fibonacci_number(remainder, m);
     
     long long result = fibonnaci_number % m;
     return result;
