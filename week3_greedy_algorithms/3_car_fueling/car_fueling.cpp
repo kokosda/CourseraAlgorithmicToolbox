@@ -10,28 +10,29 @@ int compute_min_refills(int dist, int tank, vector<int> & stops) {
 
     int num_refills = 0;
     int current_refill = 0;
-    int stops_count = stops.size();
+    const int stops_count = stops.size();
     const int IMPOSSIBLE = -1;
 
-    while (current_refill <= stops_count) {
+    // cout << "BEFORE: stops count " << stops_count << std::endl;
+
+    while ((current_refill + 1) < stops_count) {
         int last_refill = current_refill;
+        // cout << "CYCLE START: current refill " << current_refill << " stop " << stops[current_refill] << " last refil " << last_refill << std::endl;
 
-        while ((current_refill < stops_count) && ((stops[current_refill + 1] - stops[last_refill]) <= tank)) {
-            current_refill++;
-
-            if (current_refill == stops_count) {
-                current_refill++;
-                break;
-            }
+        while (((current_refill + 1) < stops_count) && ((stops[current_refill + 1] - stops[last_refill]) <= tank)) {
+            ++current_refill;
+            // cout << "INNER CYCLE: current refill " << current_refill << " stop " << stops[current_refill] << " last refil " << last_refill << std::endl;
         }
 
         if (current_refill == last_refill) {
+            // cout << "IMPOSSIBLE: current refill " << current_refill << " stop " << stops[current_refill] << " last refil " << last_refill << std::endl;
             return IMPOSSIBLE;
         }
-        if (current_refill <= stops_count) {
-            num_refills += 1;
+        if ((current_refill + 1) < stops_count) {
+            ++num_refills;
+            // cout << "NUM REFILLS: current refill " << current_refill << " stop " << stops[current_refill] << " last refil " << last_refill << " num refills " << num_refills << std::endl;
         }
-    }   
+    }
     return num_refills;
 }
 
@@ -83,11 +84,11 @@ int main() {
     // n = 4;
     vector<int> stops(n + 2);
     stops[0] = 0;
-    // insert_data_4(d, m, n, stops);
+    // insert_data_3(d, m, n, stops);
     for (size_t i = 1; i <= n; ++i)
         cin >> stops.at(i);
 
     cout << compute_min_refills(d, m, stops) << "\n";
-
+    // system("pause");
     return 0;
 }
