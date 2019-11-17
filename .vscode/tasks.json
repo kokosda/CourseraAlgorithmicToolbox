@@ -11,7 +11,7 @@
                 "-g", 
                 "-O0",
                 "-std=c++14",
-                "week2_algorithmic_warmup/5_fibonacci_number_again/fibonacci_huge.cpp",
+                "week4_divide_and_conquer/1_binary_search/binary_search.cpp",
                 "-lm"
             ],
             "group": {

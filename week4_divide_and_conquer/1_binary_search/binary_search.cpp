@@ -5,9 +5,21 @@
 using std::vector;
 
 int binary_search(const vector<int> &a, int x) {
-  int left = 0, right = (int)a.size(); 
-  //write your code here
-  return 0;
+  int left = 0;
+  int right = (int)a.size() - 1;
+  
+  while(left <= right) {
+    int mid = left + (right - left) / 2;
+
+    if (x == a[mid])
+      return mid;
+    else if (x < a[mid])
+      right = mid - 1;
+    else
+      left = mid + 1;
+  }
+
+  return -1;
 }
 
 int linear_search(const vector<int> &a, int x) {
@@ -40,23 +52,28 @@ void insert_data_set_1(vector<int> &a, vector<int> &b) {
 int main() {
   int n;
   int m;
-  insert_capacities_data_set_1(n, m);
-  // std::cin >> n;
+
+  // insert_capacities_data_set_1(n, m);
+
+  std::cin >> n;
   vector<int> a(n);
-  // for (size_t i = 0; i < a.size(); i++) {
-  //   std::cin >> a[i];
-  // }
-  // std::cin >> m;
+  for (size_t i = 0; i < a.size(); i++) {
+    std::cin >> a[i];
+  }
+  std::cin >> m;
   vector<int> b(m);
-  // for (int i = 0; i < m; ++i) {
-  //   std::cin >> b[i];
-  // }
-  insert_data_set_1(a, b);
+  for (int i = 0; i < m; ++i) {
+    std::cin >> b[i];
+  }
+
+  //insert_data_set_1(a, b);
+
   for (int i = 0; i < m; ++i) {
     //replace with the call to binary_search when implemented
-    std::cout << linear_search(a, b[i]) << ' ';
+    // std::cout << linear_search(a, b[i]) << ' ';
+    std::cout << binary_search(a, b[i]) << ' ';
   }
-  std::cout << std::endl;
-  system("pause");
+  // std::cout << std::endl;
+  // system("pause");
   return 0;
 }
