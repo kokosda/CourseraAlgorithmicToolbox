@@ -11,7 +11,7 @@
                 "-g", 
                 "-O0",
                 "-std=c++14",
-                "week4_divide_and_conquer/1_binary_search/binary_search.cpp",
+                "week4_divide_and_conquer/2_majority_element/majority_element.cpp",
                 "-lm"
             ],
             "group": {
