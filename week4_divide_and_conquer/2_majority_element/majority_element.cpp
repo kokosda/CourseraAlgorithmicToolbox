@@ -6,16 +6,12 @@
 
 using std::vector;
 
-int get_majority_element(vector<int> &a, int left, int right) {
-  if (left == right)
-    return -1;
-  if (left + 1 == right)
-    return a[left];
-  
-  return -1;
-}
-
 void show_vector(const vector<int> &a, std::string name) {
+  bool enabled = true;
+
+  if (!enabled)
+    return;
+
   std::cout << name << " size " << a.size() << ": ";
   for (int i = 0; i < a.size(); i++) {
     std::cout << a[i] << " ";
@@ -23,119 +19,82 @@ void show_vector(const vector<int> &a, std::string name) {
   std::cout << std::endl;
 }
 
-const vector<int> merge(vector<int>& a, vector<int>& b) {
-  vector<int> result(a.size() + b.size());
-  size_t currentResultEndIndex = 0;
-  size_t aSize = a.size();
-  size_t bSize = b.size();
+int merge(vector<int> &b1, vector<int> &c1, int b, int c) {
+  if (b == c)
+    return b;
 
-  while (aSize > 0 && bSize > 0) {
-    int a1 = aSize > 0 ? a[0] : -1;
-    int b1 = bSize > 0 ? b[0] : -1;
+  if (b != -1 && b1.size() > c1.size())
+    return b;
 
-    if (a1 <= b1) {
-      result[currentResultEndIndex] = a1;
-      a.erase(a.begin());
-      aSize--;
+  if (c != -1 && c1.size() > b1.size())
+    return c;
+
+  vector<int> &v = b == -1 ? b1 : c1;
+  show_vector(v, "v");
+  int value = b == -1 ? c : b;
+  size_t index = 0;
+  size_t vSize = v.size();
+
+  while (index < vSize) {
+    if (v[index] == value) {
+      return value;
     }
-    else {
-      result[currentResultEndIndex] = b1;
-      b.erase(b.begin());
-      bSize--;
-    }
-
-    currentResultEndIndex++;
-  }
-
-  size_t size = aSize > 0 ? aSize : bSize;
-  vector<int>& v = aSize > 0 ? a : b;
-
-  if (size > 0) {
-    size_t index = 0;
-    while(index < size)
-    {
-        result[currentResultEndIndex] = v[index];
-        currentResultEndIndex++;
-        index++;
-    }
-  }
-
-  // show_vector(result, "r");
-  return result;
+    index++;
+  }  
+  return -1;
 }
 
-const vector<int> merge_sort(const vector<int>& a) {
-  if (a.size() == 1) {
-    return a;
-  }
+int get_majority_element(vector<int> &a) {
+  if (a.size() == 1)
+    return a[0];
+  if (a.size() == 2)
+    return a[0] == a[1] ? a[0] : -1;
 
-  size_t m = (a.size() % 2) == 0 ? a.size() / 2 : (a.size() / 2) + 1;
-  // std::cout << "a.size=" << a.size() << "\n";
+  const int aSize = a.size();
+  size_t m = (aSize % 2) == 0 ? aSize / 2 : (aSize / 2) + 1;
 
-  vector<int> b;
-  vector<int> c;
-  vector<int>::const_iterator first;
-  vector<int>::const_iterator last;
-  
-  if (m > 1) {
-    first = a.begin();
-    last = a.begin() + m;
-    b = vector<int>(first, last);
-  }
-  else {
-    b = vector<int> { a[0] };
-  }
+  vector<int> b1 (a.begin(), a.begin() + m);
+  show_vector(b1, "b1");
+  vector<int> c1 (a.begin() + m, a.end());
+  show_vector(c1, "c1");
 
-  // std::cout << "b.size=" << b.size() << " b[0]=" << b[0] << " b[last]=" << b[b.size() - 1] << "\n";
+  int b = get_majority_element(b1);
+  int c = get_majority_element(c1);
 
-  if (m > 1) {
-    first = last;
-    last = a.end();
-    c = vector<int>(first, last);
-  }
-  else {
-    c = vector<int> { a[1] };
-  }
-
-  // std::cout << "c.size=" << c.size() << " c[0]=" << c[0] << " c[last]=" << c[c.size() - 1] << "\n";
-
-  b = merge_sort(b);
-  c = merge_sort(c);
-
-  const vector<int> result = merge(b, c);
+  int result = merge(b1, c1, b, c);
+  std::cout << "result=" << result << " [b=" << b << ", c=" << c << "]" << std::endl;
   return result;
 }
 
 void insert_data_set_1(vector<int>& a) {
-  a = vector<int> { 8, 3, 8, 36, 8, 24, 1, 8, 5, 8, 8, 8, 1, 8, 8, 8, 8 };
+  // a = vector<int> { 8, 3, 8, 36, 8, 24, 1, 8, 5, 8, 8, 8, 1, 8, 8, 8, 8 };
+  // a = vector<int> { 1, 2, 3, 4 };
+  a = vector<int> { 4, 4, 1, 1, 1, 4 };
+  // a = vector<int> { 1, 1, 2, 4, 1, 4, 1 };
+  // a = vector<int> { 1, 1, 4, 2, 1 };
 }
 
 void insert_data_set_2(vector<int>& a) {
   srand(time(NULL));
-  a = vector<int>(rand() % 10 + 100);
+  a = vector<int>(rand() % 5 + 10);
   size_t size = a.size();
 
   for(size_t i = 0; i < size; i++) {
-    a[i] = rand();
+    a[i] = rand() % 100;
   }
 }
 
 int main() {
   int n;
-  //std::cin >> n;
+  // std::cin >> n;
   vector<int> a;
-  insert_data_set_2(a);
+  insert_data_set_1(a);
+  // a = vector<int>(n);
   show_vector(a, "initial");
   // for (size_t i = 0; i < a.size(); ++i) {
   //   std::cin >> a[i];
   // }
-  // std::cout << (get_majority_element(a, 0, a.size()) != -1) << '\n';
-  vector<int> sorted = merge_sort(a);
-  // for (int i = 0; i < sorted.size(); i++) {
-  //   std::cout << sorted.at(i) << " ";
-  // }
-  show_vector(sorted, "sorted");
-  std::cout << std::endl;
+  std::cout << (get_majority_element(a) != -1) << '\n';
   system("pause");
   return 0;
 }
