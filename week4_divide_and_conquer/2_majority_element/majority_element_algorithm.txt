@@ -1,0 +1,31 @@
+MERGE(A, Mi, B, C, Bi, Ci)
+{
+    if Bi = Ci
+        return Bi
+    
+    v, w = NO_MAJ
+
+    if Bi = NO_MAJ
+        v = Ci
+    else if Ci = NO_MAJ
+        v = Bi
+    else
+        v = Bi
+        w = Ci
+
+    COUNTv = 0
+    COUNTw = 0
+    i = 0
+    WHILE i < A.size
+        if A[i] = v
+            COUNTv := COUNTv + 1
+            if COUNTv > Mi
+                return v
+        else if w != NO_MAJ AND A[i] = w
+            COUNTw := COUNTw + 1
+            if COUNTw > Mi
+                return w
+        i := i + 1
+
+    return NO_MAJ
+}
