@@ -129,6 +129,54 @@ int get_majority_element_2(vector<int> &a, size_t lo, size_t hi) {
   return result;
 }
 
+int find_candidate(vector<int> &a) 
+{ 
+    int majority_index = 0;
+    int count = 1;
+    size_t size = a.size();
+
+    for (size_t i = 1; i < size; i++) 
+    { 
+        if (a[majority_index] == a[i]) {
+            count++; 
+        }
+        else {
+            count--; 
+        }
+
+        if (count == 0) 
+        { 
+            majority_index = i; 
+            count = 1; 
+        } 
+    } 
+
+    return a[majority_index]; 
+}
+  
+bool is_majority(vector<int> &a, int candidate) 
+{ 
+    int count = 0; 
+    size_t size = a.size();
+
+    for (size_t i = 0; i < size; i++) {
+      if (a[i] == candidate) {
+        count++;
+      }
+    }
+
+    if (count > size / 2) 
+      return true; 
+      
+    return false; 
+}
+
+int get_majority_element_moores_voting(vector<int> &a) {
+  int candidate = find_candidate(a);
+  bool is_maj = is_majority(a, candidate);
+  return is_maj ? candidate : NO_MAJORITY;
+}
+
 void insert_data_set_1(vector<int>& a) {
   // a = vector<int> { 8, 3, 8, 36, 8, 24, 1, 8, 5, 8, 8, 8, 1, 8, 8, 8, 8 };
   // a = vector<int> { 1, 2, 3, 4 };
@@ -142,7 +190,7 @@ void insert_data_set_1(vector<int>& a) {
 
 void insert_data_set_2(vector<int>& a) {
   srand(time(NULL));
-  a = vector<int>(rand() % 2 + 100000);
+  a = vector<int>(rand() % 2 + 10);
   size_t size = a.size();
 
   for(size_t i = 0; i < size; i++) {
@@ -152,15 +200,15 @@ void insert_data_set_2(vector<int>& a) {
 
 int main() {
   int n;
-  // std::cin >> n;
+  std::cin >> n;
   vector<int> a;
-  insert_data_set_1(a);
-  // a = vector<int>(n);
-  show_vector(a, "initial");
-  // for (size_t i = 0; i < a.size(); ++i) {
-  //   std::cin >> a[i];
-  // }
-  std::cout << (get_majority_element_2(a, 0, a.size() - 1)) << '\n';
-  system("pause");
+  // insert_data_set_1(a);
+  a = vector<int>(n);
+  // show_vector(a, "initial");
+  for (size_t i = 0; i < a.size(); ++i) {
+    std::cin >> a[i];
+  }
+  std::cout << (get_majority_element_moores_voting(a) != -1) << '\n';
+  // system("pause");
   return 0;
 }
