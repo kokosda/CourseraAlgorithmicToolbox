@@ -19,17 +19,21 @@ void show_vector(const vector<int> &a, std::string name) {
 }
 
 int partition2(vector<int> &a, int l, int r) {
-  int x = a[l];
+  const int x = a[l];
   int j = l;
   for (int i = l + 1; i <= r; i++) {
+    std::cout << "a[i=" << i << "]=" << a[i] << " ";
     if (a[i] <= x) {
       j++;
+      std::cout << "\na[j=" << j << "]=" << a[j] << std::endl;
+      show_vector(a, "swap2 - before");
       swap(a[i], a[j]);
-      show_vector(a, "swap2");
+      show_vector(a, "swap2 - after");
     }
   }
+  show_vector(a, "swap3 - before");
   swap(a[l], a[j]);
-  show_vector(a, "swap3");
+  show_vector(a, "swap3 - after");
   return j;
 }
 
@@ -39,8 +43,8 @@ void randomized_quick_sort(vector<int> &a, int l, int r) {
   }
 
   int k = l + rand() % (r - l + 1);
-  swap(a[l], a[k]);
-  show_vector(a, "swap1");
+  //swap(a[l], a[k]);
+  //show_vector(a, "swap1");
   int m = partition2(a, l, r);
 
   randomized_quick_sort(a, l, m - 1);
