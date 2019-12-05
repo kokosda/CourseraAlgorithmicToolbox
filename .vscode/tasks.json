@@ -11,7 +11,7 @@
                 "-g", 
                 "-O0",
                 "-std=c++14",
-                "week4_divide_and_conquer/3_improving_quicksort/sorting.cpp",
+                "week5_dynamic_programming1/1_money_change_again/change_dp.cpp",
                 "-lm"
             ],
             "group": {
