@@ -11,7 +11,7 @@
                 "-g", 
                 "-O0",
                 "-std=c++14",
-                "week5_dynamic_programming1/1_money_change_again/change_dp.cpp",
+                "week5_dynamic_programming1/2_primitive_calculator/primitive_calculator.cpp",
                 "-lm"
             ],
             "group": {
