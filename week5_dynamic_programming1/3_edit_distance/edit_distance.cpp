@@ -4,8 +4,8 @@
 
 using std::string;
 
-const int DIMENSION_X = 100;
-const int DIMENSION_Y = 100;
+const int DIMENSION_X = 101;
+const int DIMENSION_Y = 101;
 
 void show_distance(int distance[][DIMENSION_Y], int n, int m) {
   bool enabled = false;
