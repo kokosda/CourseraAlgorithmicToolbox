@@ -11,7 +11,7 @@
                 "-g", 
                 "-O0",
                 "-std=c++14",
-                "week5_dynamic_programming1/2_primitive_calculator/primitive_calculator.cpp",
+                "week5_dynamic_programming1/3_edit_distance/edit_distance.cpp",
                 "-lm"
             ],
             "group": {
