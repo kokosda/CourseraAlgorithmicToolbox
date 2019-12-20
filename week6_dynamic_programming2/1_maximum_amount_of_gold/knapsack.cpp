@@ -23,7 +23,7 @@ void show_weights(int weights[][WEIGHT_MAX], int n, int m) {
   std::cout << std::endl;
 }
 
-int optimal_weight_3(int W, const vector<int> &w) {
+int optimal_weight(int W, const vector<int> &w) {
   int weights[ITEMS_COUNT_MAX][WEIGHT_MAX];
   const int w_size = w.size();
 
@@ -57,7 +57,7 @@ int main() {
     std::cin >> w[i];
   }
   // insert_data(W, w);
-  std::cout << optimal_weight_3(W, w) << '\n';
+  std::cout << optimal_weight(W, w) << '\n';
   system("pause");
   return 0;
 }
