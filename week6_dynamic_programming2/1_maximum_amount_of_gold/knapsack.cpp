@@ -58,33 +58,6 @@ int optimal_weight(int W, const vector<int> &w) {
   return result;
 }
 
-int optimal_weight_2(int W, const vector<int> &w) {
-  int weights[ITEMS_COUNT_MAX][WEIGHT_MAX];
-  const int w_size = w.size();
-
-  for (int i = 0; i <= w_size; i++) {
-    weights[i][0] = 0;
-  }
-
-  for (int i = 0; i <= W; i++) {
-    weights[0][i] = 0;
-  }
-
-  for (int i = 1; i <= w_size; i++) {
-    for (int j = 1; j <= W; j++) {              
-        weights[i][j] = weights[i - 1][j];
-
-        if (weights[i][j] <= j)
-          weights[i][j] = std::max(weights[i][j], weights[j - weights[i][j]][i - 1]);
-
-      show_weights(weights, w_size, W);
-    }
-  }
-
-  int result = weights[w_size][W];
-  return result;
-}
-
 void insert_data(int &W, vector<int> &w) {
   W = 10;
   w = { 1, 4, 8 };

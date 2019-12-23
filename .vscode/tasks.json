@@ -11,7 +11,7 @@
                 "-g", 
                 "-O0",
                 "-std=c++14",
-                "week6_dynamic_programming2/1_maximum_amount_of_gold/knapsack.cpp",
+                "week6_dynamic_programming2/2_partitioning_souvenirs/partition3.cpp",
                 "-lm"
             ],
             "group": {
