@@ -21,7 +21,7 @@ void show_vector(const vector<int> &a, std::string name) {
   std::cout << std::endl;
 }
 
-void show_weights(int weights[][WEIGHT_MAX], int n, int m) {
+void show_weights(int** weights, int n, int m) {
   bool enabled = false;
 
   if (!enabled) {
@@ -38,13 +38,18 @@ void show_weights(int weights[][WEIGHT_MAX], int n, int m) {
 }
 
 int optimal_weight(int W, const vector<int> &w) {
-  int weights[ITEMS_COUNT_MAX][WEIGHT_MAX];
   const int w_size = w.size();
+  int** weights = new int* [w_size + 1];
+
+  for (int i = 0; i <= w_size; i++) {
+    weights[i] = new int[W + 1];
+  }
 
   for (int i = 0; i <= w_size; i++) {
     for (int j = 0; j <= W; j++) {      
-        if (i==0 || j==0) 
+        if (i==0 || j==0) {
           weights[i][j] = 0;
+        }
         else if (w[i - 1] <= j) 
           weights[i][j] = std::max(w[i - 1] + weights[i - 1][j - w[i - 1]],  weights[i - 1][j]);
         else
@@ -55,6 +60,13 @@ int optimal_weight(int W, const vector<int> &w) {
   }
 
   int result = weights[w_size][W];
+
+  for (int i = 0; i < w_size; i++) {
+    delete[] weights[i];
+  }
+
+  delete[] weights;
+
   return result;
 }
 
@@ -105,13 +117,13 @@ int main() {
   int n = 0, W;
   std::cin >> W >> n;
   vector<int> w(n);
-  // for (int i = 0; i < n; i++) {
-  //   std::cin >> w[i];
-  // }
+  for (int i = 0; i < n; i++) {
+    std::cin >> w[i];
+  }
   // insert_data(W, w);
   // std::cout << "W=" << W << std::endl;
-  // show_vector(w, "w");
+  show_vector(w, "w");
   std::cout << optimal_weight(W, w) << '\n';
-  // system("pause");
+  system("pause");
   return 0;
 }
